@@ -3,11 +3,12 @@ from PIL import Image
 import pytesseract
 import os 
 import shutil 
+import VideoParse as vp
 
 def process_url(url, videoPath):
     # download 
     vp.downloadYt(url, videoPath)
-    transcript = ocr.process_video(videoPath)
+    transcript = process_video(videoPath)
     # delete video 
     os.remove(videoPath)
 
