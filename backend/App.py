@@ -1,6 +1,6 @@
 from flask import Flask, json, request
 import os
-import VideoParse.py as vp
+import VideoParse as vp
 
 app = Flask(__name__)
 
@@ -9,13 +9,19 @@ app = Flask(__name__)
 @app.route('/', methods=['Post', 'Get'])
 def api_root():
     # validate that user sends in a json
-    if request.headers['Content-Type'] != 'application/json':
-        return "Please post a JSON"
-    data = json.loads(json.dumps(request.json))
+    print(request.method)
+    print(request.url)
+    if request.method == "GET":
+        url = 'https://www.youtube.com/watch?v=WPvGqX-TXP0' # data["url"] 
+    else:
+        if request.headers['Content-Type'] != 'application/json':
+             return "Please post a JSON"
+        data = json.loads(json.dumps(request.json))
+        url = data.url
 
-    url = 'https://www.youtube.com/watch?v=WPvGqX-TXP0' # data["url"]
-    fname = "./videos/tmp.mp4"
-    downloadVideo(url, fname)
+    fname = "tmp.mp4" 
+    print("downloading to " + fname)
+    vp.downloadYt(url, fname)
     return json.dumps(process_video(fname))
 
 if __name__ == '__main__':
