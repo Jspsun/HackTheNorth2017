@@ -1,2 +1,6 @@
 backend/venv/*
+backend/images/*
+backend/videos/*
+.idea/*
 backend/__pycache*
+backend/videos/*
