@@ -4,3 +4,5 @@ backend/videos/*
 .idea/*
 backend/__pycache*
 backend/videos/*
+.vscode/
+frontend/node_modules/
