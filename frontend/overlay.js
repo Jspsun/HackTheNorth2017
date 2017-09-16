@@ -1,5 +1,5 @@
 chrome.browserAction.onClicked.addListener(function(tab) {
-  chrome.extension.getBackgroundPage().console.log("Fetching youtube data and sending");
+  console.log("Fetching youtube data and sending");
   
   
   var response = sendData();
