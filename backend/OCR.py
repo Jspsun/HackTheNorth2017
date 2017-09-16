@@ -1,13 +1,27 @@
 import cv2
 from PIL import Image
 import pytesseract
+import os 
+import shutil 
+import VideoParse as vp
+
+def process_url(url, videoPath):
+    # download 
+    vp.downloadYt(url, videoPath)
+    transcript = process_video(videoPath)
+    # delete video 
+    os.remove(videoPath)
 
 def process_video(file):
   vid = cv2.VideoCapture(file)
-  print("hit")
   speed = 3
   count = 0
   ret = []
+
+  frameFolder = './images/' + os.path.basename(file).split('.')[0]
+  if not os.path.exists(frameFolder):
+      os.mkdir(frameFolder)
+  
   while True:
     success, image = vid.read()
 
@@ -15,13 +29,15 @@ def process_video(file):
       break
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    cv2.imwrite('./images/frame{}.jpg'.format(count), gray)
+    cv2.imwrite(frameFolder + '/frame{}.jpg'.format(count), gray)
     ret.append({
       timestamp(vid.get(cv2.CAP_PROP_POS_FRAMES) / vid.get(cv2.CAP_PROP_FPS)): process_picture('./images/frame{}.jpg'.format(count))
     })
     count += 1
 
     vid.set(cv2.CAP_PROP_POS_FRAMES, vid.get(cv2.CAP_PROP_POS_FRAMES) + vid.get(cv2.CAP_PROP_FPS) * speed)
+
+  shutil.rmtree(frameFolder)
 
   return ret
 

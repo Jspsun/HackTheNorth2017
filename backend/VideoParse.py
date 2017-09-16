@@ -2,15 +2,12 @@ import urllib
 from pytube import YouTube
 import os
 
-def downloadYt(url, folder, fname):
-    path = os.path.join(folder,fname)
-    print("hit " + path)
-    if os.path.exists(path ):
-        print("deleting " + path)
+def downloadYt(url, path):
+    if os.path.exists(path):
         os.remove(path) 
 
-    fname = fname[0:fname.rfind(".mp4")]
-    print("trimmed path " + fname)
+    folder = path[0: path.rfind("/")]
+    fname = path[path.rfind("/") + 1: path.rfind(".")]
 
     yt = YouTube(url)
     video = yt.filter('mp4')[-1] # highest res
@@ -19,7 +16,7 @@ def downloadYt(url, folder, fname):
 
 
 if __name__ == '__main__':
-    downloadYt('https://www.youtube.com/watch?v=lZt1Nt2vWXM', 'test.mp4')
+    downloadYt('https://www.youtube.com/watch?v=lZt1Nt2vWXM', 'videos/test.mp4')
 
 
 
