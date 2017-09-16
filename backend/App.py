@@ -1,5 +1,6 @@
 from flask import Flask, json, request
 import os
+import VideoParse.py as vp
 
 app = Flask(__name__)
 
@@ -7,20 +8,15 @@ app = Flask(__name__)
 
 @app.route('/', methods=['Post', 'Get'])
 def api_root():
-    return "Hello"
     # validate that user sends in a json
     if request.headers['Content-Type'] != 'application/json':
         return "Please post a JSON"
-
     data = json.loads(json.dumps(request.json))
-    # data is a map of all the json input
 
-    # do whatever computation you want here
-
-    # making something to return
-    returnThing = {'message': 'look its a message'}
-    return json.dumps(returnThing)
-
+    url = 'https://www.youtube.com/watch?v=WPvGqX-TXP0' # data["url"]
+    fname = "./videos/tmp.mp4"
+    downloadVideo(url, fname)
+    return json.dumps(process_video(fname))
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 1337))
