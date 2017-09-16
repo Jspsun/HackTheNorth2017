@@ -14,15 +14,21 @@ def process_video(file):
     if not success:
       break
 
-    vid.set(cv2.CAP_PROP_POS_FRAMES, vid.get(cv2.CAP_PROP_POS_FRAMES) + vid.get(cv2.CAP_PROP_FPS) * speed)
-    print('Reading a new frame ..', count)
-
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     cv2.imwrite('./images/frame{}.jpg'.format(count), gray)
-    ret.append(process_picture('./images/frame{}.jpg'.format(count)))
+    ret.append((
+      timestamp(vid.get(cv2.CAP_PROP_POS_FRAMES) / vid.get(cv2.CAP_PROP_FPS)),
+      process_picture('./images/frame{}.jpg'.format(count))
+    ))
     count += 1
 
+    vid.set(cv2.CAP_PROP_POS_FRAMES, vid.get(cv2.CAP_PROP_POS_FRAMES) + vid.get(cv2.CAP_PROP_FPS) * speed)
+
   return ret
+
+def timestamp(seconds):
+  print(seconds)
+  return int(seconds)
 
 def process_picture(file):
   return pytesseract.image_to_string(Image.open(file))
