@@ -14,7 +14,7 @@ def downloadYt(url, folder, fname):
 
 
 if __name__ == '__main__':
-    downloadYt('https://www.youtube.com/watch?v=m-QToZcV84Q', 'test.mp4')
+    downloadYt('https://www.youtube.com/watch?v=lZt1Nt2vWXM', 'test.mp4')
 
 
 

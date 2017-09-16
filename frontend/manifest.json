@@ -3,10 +3,10 @@
   "description": "Convert youtube videos to text",
   "version": "1.0",
   "background": {
-    "scripts": ["overlay.js"]
+    "scripts": ["sendData.js", "overlay.js"]
   },
   "permissions": [
- 
+    "tabs", "background"
   ],
   "browser_action": {
   
