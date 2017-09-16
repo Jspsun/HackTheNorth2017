@@ -5,6 +5,7 @@ import os
 import shutil 
 import VideoParse as vp
 
+# Url to video
 def process_url(url, videoPath):
     # download 
     vp.downloadYt(url, videoPath)
@@ -12,11 +13,32 @@ def process_url(url, videoPath):
     # delete video 
     os.remove(videoPath)
 
+    return transcript
+
+# Process specific frame of video
+def process_time(url, path, seconds):
+  vid = cv2.VideoCapture(path)
+  vid.set(cv2.CAP_PROP_POS_FRAMES, vod.get(cv2.CAP_PROP_FPS * seconds))
+  
+  success, image = vid.read()
+
+  if not success:
+    return ''
+
+  frameFolder = './images/' + os.path.basename(path).split('.')[0]
+  if not os.path.exists(frameFolder):
+      os.mkdir(frameFolder)
+
+  gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+  cv2.imwrite(frameFolder + '/frame{}.jpg'.format(seconds), gray)
+  return process_picture(frameFolder + '/frame{}.jpg'.format(seconds))
+
+# Process entire video
 def process_video(file):
   vid = cv2.VideoCapture(file)
-  speed = 3
+  speed = 10
   count = 0
-  ret = []
+  ret = {}
 
   frameFolder = './images/' + os.path.basename(file).split('.')[0]
   if not os.path.exists(frameFolder):
@@ -30,9 +52,8 @@ def process_video(file):
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     cv2.imwrite(frameFolder + '/frame{}.jpg'.format(count), gray)
-    ret.append({
-      timestamp(vid.get(cv2.CAP_PROP_POS_FRAMES) / vid.get(cv2.CAP_PROP_FPS)): process_picture('./images/frame{}.jpg'.format(count))
-    })
+    ret[timestamp(vid.get(cv2.CAP_PROP_POS_FRAMES) / vid.get(cv2.CAP_PROP_FPS))] = process_picture(frameFolder + '/frame{}.jpg'.format(count))
+    
     count += 1
 
     vid.set(cv2.CAP_PROP_POS_FRAMES, vid.get(cv2.CAP_PROP_POS_FRAMES) + vid.get(cv2.CAP_PROP_FPS) * speed)
