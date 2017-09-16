@@ -3,10 +3,11 @@ from pytube import YouTube
 
 def downloadYt(url, fname):
     yt = YouTube(url)
-    yt = yt.filter('mp4')[-1] # highest res
-    video = yt.get('mp4')
-    video.download('./videos/' + fname)
+    video = yt.filter('mp4')[-1] # highest res
+    video.download('./videos/')
 
+if __name__ == '__main__':
+    downloadYt('https://www.youtube.com/watch?v=m-QToZcV84Q', 'test.mp4')
 
 
 
