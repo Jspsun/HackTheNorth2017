@@ -1,6 +1,7 @@
 from flask import Flask, json, request
 import os
 import VideoParse as vp
+import OCR as ocr
 
 app = Flask(__name__)
 
@@ -12,7 +13,7 @@ def api_root():
     print(request.method)
     print(request.url)
     if request.method == "GET":
-        url = 'https://www.youtube.com/watch?v=WPvGqX-TXP0' # data["url"] 
+        url = 'https://www.youtube.com/watch?v=ANuuSFY2BbY' # data["url"] 
     else:
         if request.headers['Content-Type'] != 'application/json':
              return "Please post a JSON"
@@ -20,9 +21,16 @@ def api_root():
         url = data.url
 
     fname = "tmp.mp4" 
+    folder = "./videos" 
     print("downloading to " + fname)
-    vp.downloadYt(url, fname)
-    return json.dumps(process_video(fname))
+    vp.downloadYt(url, folder, fname)
+    print("processing " + fname)
+    transcript = ocr.process_video(os.path.join(folder, fname))
+    for x in transcript:
+        print(x)
+    return ""
+
+    # return json.dumps(ocr.process_video(os.path.join(folder, fname)))
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 1337))

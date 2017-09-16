@@ -4,13 +4,16 @@ import pytesseract
 
 def process_video(file):
   vid = cv2.VideoCapture(file)
+  print("hit")
   speed = 3
-
   count = 0
   ret = []
   while True:
+    print("hit")
+    print(file)
     success, image = vid.read()
 
+    print(image)
     if not success:
       break
 
