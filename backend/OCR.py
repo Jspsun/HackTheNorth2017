@@ -9,20 +9,16 @@ def process_video(file):
   count = 0
   ret = []
   while True:
-    print("hit")
-    print(file)
     success, image = vid.read()
 
-    print(image)
     if not success:
       break
 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     cv2.imwrite('./images/frame{}.jpg'.format(count), gray)
-    ret.append((
-      timestamp(vid.get(cv2.CAP_PROP_POS_FRAMES) / vid.get(cv2.CAP_PROP_FPS)),
-      process_picture('./images/frame{}.jpg'.format(count))
-    ))
+    ret.append({
+      timestamp(vid.get(cv2.CAP_PROP_POS_FRAMES) / vid.get(cv2.CAP_PROP_FPS)): process_picture('./images/frame{}.jpg'.format(count))
+    })
     count += 1
 
     vid.set(cv2.CAP_PROP_POS_FRAMES, vid.get(cv2.CAP_PROP_POS_FRAMES) + vid.get(cv2.CAP_PROP_FPS) * speed)

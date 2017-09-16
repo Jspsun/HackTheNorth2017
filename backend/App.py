@@ -12,8 +12,11 @@ def api_root():
     # validate that user sends in a json
     print(request.method)
     print(request.url)
+
     if request.method == "GET":
-        url = 'https://www.youtube.com/watch?v=ANuuSFY2BbY' # data["url"] 
+        url = request.data['url']
+        text = ocr.process_video(url)
+        # url = 'https://www.youtube.com/watch?v=ANuuSFY2BbY' # data["url"] 
     else:
         if request.headers['Content-Type'] != 'application/json':
              return "Please post a JSON"
@@ -28,8 +31,7 @@ def api_root():
     transcript = ocr.process_video(os.path.join(folder, fname))
     for x in transcript:
         print(x)
-    return ""
-
+    return json.dumps(transcript)
     # return json.dumps(ocr.process_video(os.path.join(folder, fname)))
 
 if __name__ == '__main__':
