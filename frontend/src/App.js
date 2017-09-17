@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {NavBar} from './Navbar/NavBar';
-import {VideoPlayer} from './VideoPlayer';
+import {VideoPlayer} from './VideoPlayer/VideoPlayer';
 
 class App extends Component {
   constructor(props) {
