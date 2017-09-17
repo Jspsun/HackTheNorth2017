@@ -34,9 +34,12 @@ export class NavBar extends Component {
         height: '20px',
         width: '500px',
         padding: '15px',
-        marginTop: '-10px',
-        marginRight: '10px',
+
         fontSize: '14px',
+        marginTop: '-14px',
+        fontFamily: 'Montserrat',
+        fontSize: '15px',
+        marginRight: '10px'
       },
       enter: {
         // position: 'absolute'

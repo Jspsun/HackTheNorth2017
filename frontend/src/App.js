@@ -38,6 +38,11 @@ class App extends Component {
 
   onVideoSelect = (videoUrl) => {
     this.setState({ videoUrl: videoUrl.replace(/\watch\?v=/g, 'embed/'), dp: {} });
+    if (videoUrl.replace(/\watch\?v=/g, 'embed/') !== 'https://www.youtube.com/embed/Ykc5COodXis') {
+      this.setState({
+        title: 'Molarity - Chemistry Tutorial'
+      })
+    }
     this.setTitle()
   }
   
@@ -74,8 +79,8 @@ class App extends Component {
           }
           <TextBox responseText={this.state.responseText}/>
         </MaterialCard>
-        <SuggestedReadings readings={this.state.search} title={this.state.title} />
-        <KeyTerms />        
+        <SuggestedReadings readings={this.state.search} title={this.state.title} url={this.state.videoUrl}/>
+        <KeyTerms url={this.state.videoUrl}/>        
       </div>
     );
   }
