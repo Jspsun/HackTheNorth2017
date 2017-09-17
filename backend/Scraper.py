@@ -21,7 +21,7 @@ class Scraper(object):
             query = 'https://www.google.ca/search?q=' + '+'.join(query.split(' '))
             print(query)
             self.browser.get(query)
-            links = [l.get_attribute('href') for l in self.browser.find_elements_by_xpath("//h3/a")[:3]]
+            links = [l.get_attribute('href') for l in self.browser.find_elements_by_xpath("//h3/a") if 'youtu' not in l.get_attribute('href')][:3]
 
         except Exception as e:
             raise e
@@ -31,7 +31,8 @@ class Scraper(object):
     def cleanup(self):
         self.browser.close()
 
-if __name__ == "__main__":
+def scrapeTitle(title):
     s = Scraper()
-    print(s.getSearch('python selenium get links'))    
+    ret = s.getSearch(title)
     s.cleanup()
+    return ret

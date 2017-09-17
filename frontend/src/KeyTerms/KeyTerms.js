@@ -7,6 +7,8 @@ export class KeyTerms extends React.Component {
     return (
       <MaterialCard className={styles.card}>
         <div className={css(styles.title)}> Key Terms
+          <p>Scala - a general-purpose programming language providing support for functional programming and a strong static type system.</p>
+          <p>Closures - are techniques for implementing lexically scoped name binding in languages with first-class functions.</p>
         </div>
       </MaterialCard>
     );

@@ -58,8 +58,6 @@ export class VideoPlayer extends Component {
               this.setState({
                 e: e.target
               })
-              console.log(e)
-              {/* this.setState({currentTime: parseInt(e.target.getCurrentTime())}) */}
             }}
           />
           {/* <iframe id="player" frameborder="0" type="text/html" src={this.props.videoUrl + '?enablejsapi=1'} /> */}

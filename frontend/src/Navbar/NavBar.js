@@ -28,13 +28,15 @@ export class NavBar extends Component {
       search: {
         marginLeft: 'Auto',
         border: 'none',
-        borderRadius: '20px',
+        borderRadius: '5px',
         display: 'flex',
-        backgroundColor: '#F1F1F1',
+        backgroundColor: '#f5f6ff',
         height: '20px',
         width: '500px',
         padding: '15px',
-        marginTop: '-10px'
+        marginTop: '-10px',
+        marginRight: '10px',
+        fontSize: '14px',
       },
       enter: {
         // position: 'absolute'
@@ -46,7 +48,7 @@ export class NavBar extends Component {
         <div>
           Learnr
         </div>
-        <input className={css(styles.search)} onKeyPress={this.onKeyPress} id='search' type='text' placeholder='input youtube url'/>
+        <input className={css(styles.search)} onKeyPress={this.onKeyPress} id='search' type='text' placeholder='INPUT YOUTUBE URL'/>
       </div>
     );
   }

@@ -5,6 +5,7 @@ import OCR as ocr
 import Summarizer as summarizer
 from flask_cors import CORS
 import random
+from Scraper import scrapeTitle
 
 app = Flask(__name__)
 # app.config['CORS_HEADERS'] = 'Content-Type'
@@ -21,6 +22,14 @@ class Transcript:
     def __init__(self, url, transcript):
         self.url = url
         self.transcipt = transcript
+
+@app.route('/search')
+def search():
+    query = request.args.get('title')
+    print(query)
+    if query is None:
+        return jsonify([])
+    return jsonify(scrapeTitle(query))
 
 @app.route('/', methods=['POST', 'GET'])
 def api_root():

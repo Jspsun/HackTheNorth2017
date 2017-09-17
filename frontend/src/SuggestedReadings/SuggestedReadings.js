@@ -6,7 +6,17 @@ export class SuggestedReadings extends React.Component {
   render () {
     return (
       <MaterialCard className={styles.card}>
-        <div className={css(styles.title)}> Suggested Readings
+        <div className={css(styles.title)}> Readings related to '{this.props.title}': 
+          {this.props.readings && 
+            <div>
+              <br />
+              <a href={this.props.readings[0]}>{this.props.readings[0]}</a>
+              <br />
+              <a href={this.props.readings[1]}>{this.props.readings[1]}</a>
+              <br />
+              <a href={this.props.readings[2]}>{this.props.readings[2]}</a>
+            </div>
+          }
         </div>
       </MaterialCard>
     );

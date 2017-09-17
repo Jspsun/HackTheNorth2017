@@ -11,13 +11,34 @@ class App extends Component {
     super();
     this.state = {
       responseText: '',
-      videoUrl: null,
-      dp: {}
+      videoUrl: 'https://www.youtube.com/embed/Ykc5COodXis',
+      dp: {},
+      search: null,
+      title: 'Scala Tutorials - Closures' 
     }
+    this.setTitle()
   }
 
-  onVideoSelect = videoUrl => {
+  setTitle = () => {
+    fetch('http://localhost:1338/search?title=' + this.state.title, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      timeout: 100,
+    }).then(resp => {
+      return resp.json();
+    }).then(resp => {
+      this.setState({
+        search: resp
+      })
+    })
+  }
+
+  onVideoSelect = (videoUrl) => {
     this.setState({ videoUrl: videoUrl.replace(/\watch\?v=/g, 'embed/'), dp: {} });
+    this.setTitle()
   }
   
   triggerTextRequest = (time) => {
@@ -53,7 +74,7 @@ class App extends Component {
           }
           <TextBox responseText={this.state.responseText}/>
         </MaterialCard>
-        <SuggestedReadings />
+        <SuggestedReadings readings={this.state.search} title={this.state.title} />
         <KeyTerms />        
       </div>
     );

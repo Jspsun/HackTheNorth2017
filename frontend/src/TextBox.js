@@ -5,17 +5,24 @@ const SpaceWrapper = styled.div`
   display: inline-block;
   vertical-align: top;
   box-sizing: border-box;
-  padding: 5px;
+  padding-left: 10px;
   width: 25%;
-  max-height: 100%;
+  max-height: 550px;
+  overflow: hidden;
   position: relative;
 `
 
 const TextWrapper = styled.div`
+  padding-left: 5px;
   width: 100%;
   box-sizing: border-box;
-  padding-bottom: 56.25%;
+  padding-bottom: 0;
+  padding-top: 0;
   position: relative;
+  font-size: 16px;
+  height: 550px;
+  margin-bottom: 0;
+  border: 1px solid gray;
 
   iframe {
     position: absolute;
@@ -24,18 +31,21 @@ const TextWrapper = styled.div`
   }
 `;
 
+const sketchStyle = {
+  fontSize: '16px',
+}
+
 export class TextBox extends Component { 
   render() {
     var response = this.props.responseText;
     return (
       <SpaceWrapper>
         <TextWrapper>
+          <div style={sketchStyle}>
           {response.split('\n').map(resp => 
-            <div>
-              {resp}
-              <br />
-            </div>
+              <p>{resp}</p>
           )}
+          </div>
         </TextWrapper>
       </SpaceWrapper>
     );
