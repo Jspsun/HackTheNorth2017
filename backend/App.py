@@ -70,23 +70,36 @@ def summarize():
     
     resp.headers.add('Access-Control-Allow-Origin', '*')
     return resp
-@app.route('/getKeyWords', methods=['Post'])
 
+@app.route('/getKeyWords', methods=['Post'])
 def getKeyWords():
     if request.headers['Content-Type'] != 'application/json':
         return "Please post a JSON"
+    # keywords = None
+    with open('/Users/Jspsun/AtomWorkspace/HackTheNorth2017/backend/KeyWords.json') as data_file:    
+        keywords = json.load(data_file)
+        randoKeys = keywords.keys()
+        print randoKeys
+        res = {
+            randoKeys[0]: keywords[randoKeys[0]],
+            randoKeys[1]: keywords[randoKeys[1]],
+            randoKeys[2]: keywords[randoKeys[2]],
+            randoKeys[3]: keywords[randoKeys[3]],
+            randoKeys[4]: keywords[randoKeys[4]]
+        }
+        # print res
+        # console.log('aaaa')
+        return res
+    # data = json.loads(json.dumps(request.json))
 
-    data = json.loads(json.dumps(request.json))
+    # key
 
     # data is a map of all the json input
     # do whatever computation you want here
     # making something to return
 
-
-
-
-    returnThing = {'message': 'look its a message'}
-    return json.dumps(returnThing)
+    # returnThing = {'message': 'look itaaas a message'}
+    # return json.dumps(returnThing)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 1338))

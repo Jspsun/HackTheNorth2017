@@ -17,7 +17,3 @@ def downloadYt(url, path):
 
 if __name__ == '__main__':
     downloadYt('https://www.youtube.com/watch?v=LQVDJtfpQU0', 'videos/test.mp4')
-
-
-
-
