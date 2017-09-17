@@ -30,8 +30,12 @@ export class TextBox extends Component {
     return (
       <SpaceWrapper>
         <TextWrapper>
-          <p>memes</p>
-          <p>{response}</p>
+          {response.split('\n').map(resp => 
+            <div>
+              {resp}
+              <br />
+            </div>
+          )}
         </TextWrapper>
       </SpaceWrapper>
     );

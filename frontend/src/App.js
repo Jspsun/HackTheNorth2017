@@ -10,41 +10,55 @@ class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      responseText: "default response text",
+      responseText: '',
       videoUrl: null,
+      dp: {}
     }
   }
 
   onVideoSelect = videoUrl => {
-    this.setState({ videoUrl: videoUrl.replace(/\watch\?v=/g, 'embed/') });
+    this.setState({ videoUrl: videoUrl.replace(/\watch\?v=/g, 'embed/'), dp: {} });
   }
   
-  triggerTextRequest = responseText => {
-    this.setState({responseText: this.postRequest()});
+  triggerTextRequest = (time) => {
+    if (time in this.state.dp) {
+      this.setState({
+        responseText: this.state.dp[time]
+      })
+      return;
+    }
+
+    fetch('http://localhost:1338/?id=' + this.state.videoUrl + '&time=' + time, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      timeout: 100,
+    }).then(resp => {
+      return resp.json();
+    }).then(resp => this.setState({
+      responseText: resp
+    }))
+    this.state.dp[time] = this.state.responseText
   }
 
   render() {
     return (
       <div>
         <NavBar onVideoSelect={this.onVideoSelect} />
-        <SuggestedReadings />
-        <KeyTerms />
         <MaterialCard>
           {this.state.videoUrl &&
             <VideoPlayer videoUrl={this.state.videoUrl} triggerTextRequest={this.triggerTextRequest}/>
           }
           <TextBox responseText={this.state.responseText}/>
-        </MaterialCard>        
+        </MaterialCard>
+        <SuggestedReadings />
+        <KeyTerms />        
       </div>
     );
   }
   
-  postRequest(){
-    console.log("posting request in App");
-    
-    //return response
-  }
-
 }
 
 export default App;

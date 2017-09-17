@@ -15,6 +15,7 @@ export class KeyTerms extends React.Component {
 
 const styles = StyleSheet.create({
   card: {
+    marginTop: '0px',
     width:'45%',
     display: 'inline-block'
   },

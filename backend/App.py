@@ -3,27 +3,41 @@ import os
 import VideoParse as vp
 import OCR as ocr
 import Summarizer as summarizer
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+# app.config['CORS_HEADERS'] = 'Content-Type'
+
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
 
 # Post a json to flask server
-
 class Transcript:
     def __init__(self, url, transcript):
         self.url = url
         self.transcipt = transcript
 
-@app.route('/', methods=['Post', 'Get'])
-@cross_origin()
+@app.route('/', methods=['POST', 'GET'])
 def api_root():
     if request.method == "GET":
-        vidid = request.args.get('id')
+        vidid = request.args.get('id').strip('https://www.youtube.com/embed/')
         seconds = request.args.get('time')
 
+        url = request.args.get('id').replace('embed/', 'watch?v=')
+
+        fname = vidid + ".mp4"
+        folder = "./videos" 
+
+        path = os.path.join(folder, fname)
+
+        print(url, path, seconds)
+
         resp = jsonify(ocr.process_time(url, path, seconds))
+        print(resp)
     else:
         if request.headers['Content-Type'] != 'application/json':
              return "Please post a JSON"
@@ -43,8 +57,7 @@ def api_root():
             vp.downloadYt(url, path)
 
         resp = jsonify({})
-    
-    resp.headers.add('Access-Control-Allow-Origin', '*')
+
     return resp
 
 @app.route('/summarize', methods=['Post'])
@@ -57,6 +70,23 @@ def summarize():
     
     resp.headers.add('Access-Control-Allow-Origin', '*')
     return resp
+@app.route('/getKeyWords', methods=['Post'])
+
+def getKeyWords():
+    if request.headers['Content-Type'] != 'application/json':
+        return "Please post a JSON"
+
+    data = json.loads(json.dumps(request.json))
+
+    # data is a map of all the json input
+    # do whatever computation you want here
+    # making something to return
+
+
+
+
+    returnThing = {'message': 'look its a message'}
+    return json.dumps(returnThing)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 1338))
