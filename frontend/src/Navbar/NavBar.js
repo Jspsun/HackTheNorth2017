@@ -4,7 +4,10 @@ import { StyleSheet, css } from 'aphrodite';
 export class NavBar extends Component {
   onKeyPress = (e) => {
     if (e.key === 'Enter') {
-      this.props.onVideoSelect(e.target.value);
+      let reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i;
+      if (e.target.value.match(reg)){
+        this.props.onVideoSelect(e.target.value);
+      }
     }
   }
 

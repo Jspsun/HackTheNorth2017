@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import {MaterialCard} from '../UI/MaterialCard'
 
 const VideoPlayerWrapper = styled.div`
   width: 75%;
@@ -53,11 +54,13 @@ export class VideoPlayer extends Component {
   render() {
     var width = window.innerWidth;
     return (
-      <VideoPlayerWrapper>
-        <IframeWrapper>
-          <iframe src={this.props.videoUrl} />
-        </IframeWrapper>
-      </VideoPlayerWrapper>
+      <MaterialCard>
+        <VideoPlayerWrapper>
+          <IframeWrapper>
+            <iframe src={this.props.videoUrl} />
+          </IframeWrapper>
+        </VideoPlayerWrapper>
+      </MaterialCard>
     );
   }
 }
