@@ -1,4 +1,4 @@
-from flask import Flask, json, request
+from flask import Flask, json, request, jsonify
 import os
 import VideoParse as vp
 import OCR as ocr
@@ -22,7 +22,7 @@ def api_root():
         vidid = request.args.get('id')
         seconds = request.args.get('time')
 
-        resp = flask.jsonify(ocr.process_time(url, path, seconds))
+        resp = jsonify(ocr.process_time(url, path, seconds))
     else:
         if request.headers['Content-Type'] != 'application/json':
              return "Please post a JSON"
@@ -37,9 +37,11 @@ def api_root():
         folder = "./videos" 
 
         path = os.path.join(folder, fname)
-        vp.downloadYt(url, path)
 
-        resp = flask.jsonify({})
+        if not os.path.isfile(path):
+            vp.downloadYt(url, path)
+
+        resp = jsonify({})
     
     resp.headers.add('Access-Control-Allow-Origin', '*')
     return resp
