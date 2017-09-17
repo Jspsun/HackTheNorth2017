@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const VideoPlayerWrapper = styled.div`
-  width: 50%;
+  width: 75%;
+  max-height: 100%;
   position: relative;
 `
 

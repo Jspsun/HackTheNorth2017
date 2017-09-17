@@ -2,19 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
 export class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: ''
-    }
-  }
-
   onKeyPress = (e) => {
     if (e.key === 'Enter') {
-      this.setState({
-        query: e.target.value
-      })
-      console.log(e.target.value);
+      this.props.onVideoSelect(e.target.value);
     }
   }
 
