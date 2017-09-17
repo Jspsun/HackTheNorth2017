@@ -28,13 +28,16 @@ export class NavBar extends Component {
       search: {
         marginLeft: 'Auto',
         border: 'none',
-        borderRadius: '20px',
+        borderRadius: '5px',
         display: 'flex',
         backgroundColor: '#F1F1F1',
         height: '20px',
         width: '500px',
         padding: '15px',
-        marginTop: '-10px'
+        marginTop: '-14px',
+        fontFamily: 'Montserrat',
+        fontSize: '15px',
+        marginRight: '10px'
       },
       enter: {
         // position: 'absolute'

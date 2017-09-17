@@ -18,6 +18,7 @@ class App extends Component {
 
   onVideoSelect = videoUrl => {
     this.setState({ videoUrl: videoUrl.replace(/\watch\?v=/g, 'embed/'), dp: {} });
+    
   }
   
   triggerTextRequest = (time) => {
