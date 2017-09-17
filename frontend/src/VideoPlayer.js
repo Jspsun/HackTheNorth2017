@@ -31,4 +31,14 @@ export class VideoPlayer extends Component {
       </VideoPlayerWrapper>
     );
   }
+  
+  componentDidMount() {
+    this.interval=setInterval(() => {
+      //get video time
+      var curVideoTime = 0;
+      console.log("Making request in VideoPlayer at time: " + curVideoTime);
+      this.props.triggerTextRequest(curVideoTime);
+    
+    }, 1000);
+  }
 }
