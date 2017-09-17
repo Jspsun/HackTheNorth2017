@@ -19,7 +19,7 @@ def process_url(url, videoPath):
 # Process specific frame of video
 def process_time(url, path, seconds):
   vid = cv2.VideoCapture(path)
-  vid.set(cv2.CAP_PROP_POS_FRAMES, vod.get(cv2.CAP_PROP_FPS * seconds))
+  vid.set(cv2.CAP_PROP_POS_FRAMES, vid.get(cv2.CAP_PROP_FPS) * int(seconds))
   
   success, image = vid.read()
 
@@ -35,6 +35,8 @@ def process_time(url, path, seconds):
   transcript = process_picture(frameFolder + '/frame{}.jpg'.format(seconds))
 
   os.remove(frameFolder + '/frame{}.jpg'.format(seconds))
+
+  return transcript
 
 # Process entire video
 def process_video(file):

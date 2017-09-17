@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import {MaterialCard} from '../UI/MaterialCard'
+import {MaterialCard} from '../UI/MaterialCard';
+import YouTube from 'react-youtube';
 
 const VideoPlayerWrapper = styled.div`
   display: inline-block;
@@ -25,6 +26,9 @@ const IframeWrapper = styled.div`
 export class VideoPlayer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      e: null
+    }
   }
 
   downloadVideo = () => {
@@ -33,7 +37,6 @@ export class VideoPlayer extends Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({
         id: this.props.videoUrl
@@ -48,19 +51,30 @@ export class VideoPlayer extends Component {
     return (
       <VideoPlayerWrapper>
         <IframeWrapper>
-          <iframe src={this.props.videoUrl} />
+          <YouTube
+            videoId={this.props.videoUrl.replace('https://www.youtube.com/embed/', '')}
+            onReady={this._onReady}
+            onStateChange={(e)=> {
+              this.setState({
+                e: e.target
+              })
+              console.log(e)
+              {/* this.setState({currentTime: parseInt(e.target.getCurrentTime())}) */}
+            }}
+          />
+          {/* <iframe id="player" frameborder="0" type="text/html" src={this.props.videoUrl + '?enablejsapi=1'} /> */}
         </IframeWrapper>
       </VideoPlayerWrapper>
     );
   }
 
-  componentDidMount() {
-    this.interval=setInterval(() => {
-      //get video time
-      var curVideoTime = 0;
-      console.log("Making request in VideoPlayer at time: " + curVideoTime);
-      this.props.triggerTextRequest(curVideoTime);
+  componentDidMount = () => {
+    this.interval = setInterval(() => {
+      if (this.state.e !== null) {
+        console.log("Making request in VideoPlayer at time: " + this.state.e.getCurrentTime());
+        this.props.triggerTextRequest(parseInt(this.state.e.getCurrentTime()) + 1);
+      }
     
-    }, 1000);
+    }, 2000);
   }
 }
