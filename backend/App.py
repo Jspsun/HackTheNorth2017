@@ -2,6 +2,7 @@ from flask import Flask, json, request, jsonify
 import os
 import VideoParse as vp
 import OCR as ocr
+import Summarizer as summarizer
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
@@ -42,6 +43,17 @@ def api_root():
             vp.downloadYt(url, path)
 
         resp = jsonify({})
+    
+    resp.headers.add('Access-Control-Allow-Origin', '*')
+    return resp
+
+@app.route('/summarize', methods=['Post'])
+def summarize():
+    if request.headers['Content-Type'] != 'application/json':
+         return "Please post a JSON"
+    data = json.loads(json.dumps(request.json))
+    text=data["text"].strip()
+    resp=jsonify({"text":summarizer.summarize_text(text)})
     
     resp.headers.add('Access-Control-Allow-Origin', '*')
     return resp
