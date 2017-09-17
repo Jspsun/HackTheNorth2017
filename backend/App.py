@@ -2,8 +2,11 @@ from flask import Flask, json, request
 import os
 import VideoParse as vp
 import OCR as ocr
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Post a json to flask server
 
@@ -13,34 +16,34 @@ class Transcript:
         self.transcipt = transcript
 
 @app.route('/', methods=['Post', 'Get'])
+@cross_origin()
 def api_root():
     if request.method == "GET":
         vidid = request.args.get('id')
         seconds = request.args.get('time')
+
+        resp = flask.jsonify(ocr.process_time(url, path, seconds))
     else:
         if request.headers['Content-Type'] != 'application/json':
              return "Please post a JSON"
         data = json.loads(json.dumps(request.json))
-        vidid = data.id
-        seconds = data.time
 
-    url = 'https://www.youtube.com/watch?v=' + vidid
+        vidid = data['id'].strip('https://www.youtube.com/embed/')
+        url = data['id'].replace('embed/', 'watch?v=')
 
-    # TODO check if in DB
+        # TODO check if in DB
     
-    fname = vidid + ".mp4"
-    folder = "./videos" 
+        fname = vidid + ".mp4"
+        folder = "./videos" 
 
-    path = os.path.join(folder,fname)
+        path = os.path.join(folder, fname)
+        vp.downloadYt(url, path)
 
-    transcript = ocr.process_time(url, path, seconds)
-    # transcript = ocr.process_url(url, path)
-
-    # TODO Add to DB 
-    print(transcript)
-
-    return json.dumps(transcript)
+        resp = flask.jsonify({})
+    
+    resp.headers.add('Access-Control-Allow-Origin', '*')
+    return resp
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 1338))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=True, host='localhost', port=port)
