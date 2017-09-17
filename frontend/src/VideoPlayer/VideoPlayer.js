@@ -22,8 +22,28 @@ const IframeWrapper = styled.div`
 `;
 
 export class VideoPlayer extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  downloadVideo = () => {
+    fetch('http://localhost:1338/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({
+        id: this.props.videoUrl
+      })
+    })
+  }
+
   render() {
     var width = window.innerWidth;
+    this.downloadVideo()
+
     return (
       <MaterialCard>
         <VideoPlayerWrapper>

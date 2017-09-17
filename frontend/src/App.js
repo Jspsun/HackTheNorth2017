@@ -8,9 +8,10 @@ class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      videoUrl: "https://www.youtube.com/embed/9pdj4iJD08s",
+      videoUrl: null,
     }
   }
+
   onVideoSelect = videoUrl => {
     this.setState({ videoUrl: videoUrl.replace(/\watch\?v=/g, 'embed/') });
   }
@@ -19,9 +20,11 @@ class App extends Component {
     return (
       <div>
         <NavBar onVideoSelect={this.onVideoSelect} />
-        <VideoPlayer videoUrl={this.state.videoUrl} />
         <SuggestedReadings />
         <KeyTerms />
+        {this.state.videoUrl &&
+          <VideoPlayer videoUrl={this.state.videoUrl} />
+        }
       </div>
     );
   }

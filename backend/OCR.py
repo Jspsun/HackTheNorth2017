@@ -61,7 +61,7 @@ def process_video(file):
 
     vid.set(cv2.CAP_PROP_POS_FRAMES, vid.get(cv2.CAP_PROP_POS_FRAMES) + vid.get(cv2.CAP_PROP_FPS) * speed)
 
-  shutil.rmtree(frameFolder)
+  # shutil.rmtree(frameFolder)
 
   return ret
 
@@ -75,8 +75,9 @@ def process_picture(file):
 if __name__ == '__main__':
   print(process_picture('./test.png'))
   transcript = process_video('./videos/test.mp4')
-  for t in transcript:
-    print(t)
+  print(transcript)
+  for t, v in transcript.items():
+    print(t, v)
 
 # pytesseract.pytesseract.tesseract_cmd = '<full_path_to_your_tesseract_executable>'
 # Include the above line, if you don't have tesseract executable in your PATH
