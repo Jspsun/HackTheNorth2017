@@ -4,6 +4,7 @@ import VideoParse as vp
 import OCR as ocr
 import Summarizer as summarizer
 from flask_cors import CORS
+import random
 
 app = Flask(__name__)
 # app.config['CORS_HEADERS'] = 'Content-Type'
@@ -79,7 +80,7 @@ def getKeyWords():
     with open('/Users/Jspsun/AtomWorkspace/HackTheNorth2017/backend/KeyWords.json') as data_file:    
         keywords = json.load(data_file)
         randoKeys = keywords.keys()
-        print randoKeys
+        random.shuffle(randoKeys)
         res = {
             randoKeys[0]: keywords[randoKeys[0]],
             randoKeys[1]: keywords[randoKeys[1]],
@@ -89,7 +90,7 @@ def getKeyWords():
         }
         # print res
         # console.log('aaaa')
-        return res
+        return jsonify(res)
     # data = json.loads(json.dumps(request.json))
 
     # key
