@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const SpaceWrapper = styled.div`
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  padding: 5px;
   width: 25%;
   max-height: 100%;
   position: relative;

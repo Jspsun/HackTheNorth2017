@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import {NavBar} from './Navbar/NavBar';
-import {VideoPlayer} from './VideoPlayer';
 import {TextBox} from './TextBox';
+import {VideoPlayer} from './VideoPlayer/VideoPlayer';
 
 class App extends Component {
   constructor(props) {
     super();
     this.state = {
-      videoUrl: "https://www.youtube.com/embed/9pdj4iJD08s",
       responseText: "default response text",
+      videoUrl: null,
     }
   }
+
   onVideoSelect = videoUrl => {
     this.setState({ videoUrl: videoUrl.replace(/\watch\?v=/g, 'embed/') });
   }
@@ -23,7 +24,9 @@ class App extends Component {
     return (
       <div>
         <NavBar onVideoSelect={this.onVideoSelect} />
-        <VideoPlayer videoUrl={this.state.videoUrl} triggerTextRequest={this.triggerTextRequest}/>
+        {this.state.videoUrl &&
+          <VideoPlayer videoUrl={this.state.videoUrl} triggerTextRequest={this.triggerTextRequest}/>
+        }
         <TextBox responseText={this.state.responseText}/>
       </div>
     );
