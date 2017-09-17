@@ -46,6 +46,23 @@ def api_root():
     resp.headers.add('Access-Control-Allow-Origin', '*')
     return resp
 
+@app.route('/getKeyWords', methods=['Post'])
+def getKeyWords():
+    if request.headers['Content-Type'] != 'application/json':
+        return "Please post a JSON"
+
+    data = json.loads(json.dumps(request.json))
+
+    # data is a map of all the json input
+    # do whatever computation you want here
+    # making something to return
+
+
+
+
+    returnThing = {'message': 'look its a message'}
+    return json.dumps(returnThing)
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 1338))
     app.run(debug=True, host='localhost', port=port)

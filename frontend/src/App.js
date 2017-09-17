@@ -27,14 +27,14 @@ class App extends Component {
     return (
       <div>
         <NavBar onVideoSelect={this.onVideoSelect} />
-        <SuggestedReadings />
-        <KeyTerms />
         <MaterialCard>
           {this.state.videoUrl &&
             <VideoPlayer videoUrl={this.state.videoUrl} triggerTextRequest={this.triggerTextRequest}/>
           }
           <TextBox responseText={this.state.responseText}/>
-        </MaterialCard>        
+        </MaterialCard>
+        <SuggestedReadings />
+        <KeyTerms />        
       </div>
     );
   }
