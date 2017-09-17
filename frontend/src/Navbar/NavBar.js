@@ -17,6 +17,7 @@ export class NavBar extends Component {
         display: 'flex',
         padding: '30px 10px 0px 30px',
         color: '#4E8BD9',
+        backgroundColor: '#fff',
         fontFamily: 'Baloo Tammudu',
         lineHeight: '50px',
         fontSize: '40px',
@@ -43,7 +44,7 @@ export class NavBar extends Component {
     return (
       <div className={css(styles.wrapper)}>
         <div>
-          LearnR
+          Learnr
         </div>
         <input className={css(styles.search)} onKeyPress={this.onKeyPress} id='search' type='text' placeholder='input youtube url'/>
       </div>

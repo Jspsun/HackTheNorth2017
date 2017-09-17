@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {NavBar} from './Navbar/NavBar';
 import {VideoPlayer} from './VideoPlayer/VideoPlayer';
+import {SuggestedReadings} from './SuggestedReadings/SuggestedReadings';
+import {KeyTerms} from './KeyTerms/KeyTerms';
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +20,8 @@ class App extends Component {
       <div>
         <NavBar onVideoSelect={this.onVideoSelect} />
         <VideoPlayer videoUrl={this.state.videoUrl} />
+        <SuggestedReadings />
+        <KeyTerms />
       </div>
     );
   }

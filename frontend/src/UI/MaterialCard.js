@@ -13,9 +13,13 @@ export class MaterialCard extends React.Component {
 
 const styles = StyleSheet.create({
   wrapper: {
+    margin: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '15px',
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
     borderRadius: '4px',
     boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-    color: '#fff'
+    backgroundColor: '#fff'
   }
 });
