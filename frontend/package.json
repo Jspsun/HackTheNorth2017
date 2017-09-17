@@ -11,6 +11,7 @@
     "aphrodite": "^1.2.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-youtube": "^7.4.0",
     "styled-components": "^2.1.2"
   },
   "homepage": "./",

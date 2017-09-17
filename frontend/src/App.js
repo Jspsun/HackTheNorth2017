@@ -52,9 +52,9 @@ class App extends Component {
             <VideoPlayer videoUrl={this.state.videoUrl} triggerTextRequest={this.triggerTextRequest}/>
           }
           <TextBox responseText={this.state.responseText}/>
-        </MaterialCard>        
+        </MaterialCard>
         <SuggestedReadings />
-        <KeyTerms />
+        <KeyTerms />        
       </div>
     );
   }
