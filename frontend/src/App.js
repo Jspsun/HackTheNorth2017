@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {NavBar} from './Navbar/NavBar';
-import {TextBox} from './TextBox';
-import {VideoPlayer} from './VideoPlayer/VideoPlayer';
-import {SuggestedReadings} from './SuggestedReadings/SuggestedReadings';
-import {KeyTerms} from './KeyTerms/KeyTerms';
+import { NavBar } from './Navbar/NavBar';
+import { TextBox } from './TextBox';
+import { VideoPlayer } from './VideoPlayer/VideoPlayer';
+import { SuggestedReadings } from './SuggestedReadings/SuggestedReadings';
+import { KeyTerms } from './KeyTerms/KeyTerms';
+import { MaterialCard } from './UI/MaterialCard';
 
 class App extends Component {
   constructor(props) {
@@ -28,10 +29,12 @@ class App extends Component {
         <NavBar onVideoSelect={this.onVideoSelect} />
         <SuggestedReadings />
         <KeyTerms />
-        {this.state.videoUrl &&
-          <VideoPlayer videoUrl={this.state.videoUrl} triggerTextRequest={this.triggerTextRequest}/>
-        }
-        <TextBox responseText={this.state.responseText}/>
+        <MaterialCard>
+          {this.state.videoUrl &&
+            <VideoPlayer videoUrl={this.state.videoUrl} triggerTextRequest={this.triggerTextRequest}/>
+          }
+          <TextBox responseText={this.state.responseText}/>
+        </MaterialCard>        
       </div>
     );
   }

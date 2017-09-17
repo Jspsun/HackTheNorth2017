@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   wrapper: {
     margin: '20px',
     display: 'flex',
-    alignItems: 'center',
+    // alignItems: 'center',
     padding: '15px',
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
     borderRadius: '4px',
