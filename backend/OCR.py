@@ -4,6 +4,7 @@ import pytesseract
 import os 
 import shutil 
 import VideoParse as vp
+from selenium import webdriver
 
 # Url to video
 def process_url(url, videoPath):
@@ -31,7 +32,9 @@ def process_time(url, path, seconds):
 
   gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
   cv2.imwrite(frameFolder + '/frame{}.jpg'.format(seconds), gray)
-  return process_picture(frameFolder + '/frame{}.jpg'.format(seconds))
+  transcript = process_picture(frameFolder + '/frame{}.jpg'.format(seconds))
+
+  os.remove(frameFolder + '/frame{}.jpg'.format(seconds))
 
 # Process entire video
 def process_video(file):
