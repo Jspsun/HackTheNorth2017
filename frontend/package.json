@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "electron": "^1.8.0",
+    "electron": "^1.8.8",
     "foreman": "^2.0.0",
-    "react-scripts": "0.8.5"
+    "react-scripts": "5.0.1"
   },
   "dependencies": {
     "aphrodite": "^1.2.4",
